@@ -1,45 +1,65 @@
 import { useState } from "react"
 import { Text, View, Pressable, Image, FlatList, StyleSheet, TextInput } from "react-native"
-import { auth } from '../firebase/config'
+import { auth, db} from "../firebase/config"
+import Login from "./Login"
 
 function Register(props) {
-    const [email, setEmail] = useState("")
-    const [user, setUser] = useState("")
-    const [password, setPassword] = useState("")
 
-    function onSubmit(){
-        console.log(email)
-        console.log(password)
-        console.log(user)
+    const [email, setEmail] = useState("")
+    const [userName, setUsername] = useState("")
+    const [password, setPassword] = useState("")
+    const [register, setRegister] = useState(false)
+    const [registerError, setRegisterError] = useState("")
+    
+
+    function onSubmit(email, userName, password) {
         auth.createUserWithEmailAndPassword(email, password)
+        .then(response => {
+            db.collection("users").add({
+                email: email,
+                nombreUsuario: userName,
+                createdAt: Date.now()
+            })
+        
+        })
+        .then(response=>{
+            props.navigation.navigate("Login")
+        })
+        .catch(error => {
+            setRegisterError("Fallo en el registro")
+            console.log(error)
+        })
+
+        
     }
-    
-    
 
     return (
         <View style={styles.container}>
-            <Text>Formulario Registro</Text>
+            <View style={styles.containerForm}>
+                <Text>Formulario Registro</Text>
+                <Text style={styles.texto}>Ingrese su Email</Text>
+                <TextInput style={styles.inputStyle}
+                 keyboardType="email-address"
+                    placeholder="email"
+                    onChangeText={text => setEmail(text)}
+                    value={email}></TextInput>
+                <Text style={styles.texto}>Ingrese su Username</Text>
+                <TextInput style={styles.inputStyle}
+                 keyboardType="default"
+                    placeholder="Nombre de usuario"
+                    onChangeText={text => setUsername(text)}
+                    value={userName}></TextInput>
+                <Text style={styles.texto}>Ingrese su Password</Text>
+                <TextInput style={styles.inputStyle}
+                 keyboardType="default"
+                    placeholder="Password"
+                    secureTextEntry={true}
+                    onChangeText={text => setPassword(text)}
+                    value={password}></TextInput>
+                <Pressable style={styles.clickeableForm} onPress={() => onSubmit(email,userName, password)}><Text style={styles.textoBoton}>Registrarse</Text></Pressable>
+            </View>
             <Text>Ya tenes cuenta?</Text>
             <Pressable style={styles.clickeable} onPress={() => props.navigation.navigate("Login")}><Text style={styles.texto}>Ir al Login</Text></Pressable>
-            <TextInput style={styles.field}
-                keyboardType='email-address'
-                placeholder='email: '
-                onChangeText={text => setEmail(text)}
-                value={email} />
-            <TextInput style={styles.field}
-                keyboardType='default'
-                placeholder='password: '
-                secureTextEntry={true}
-                onChangeText={text => setPassword(text)}
-                value={password} />
-            <TextInput style={styles.field}
-                keyboardType='default'
-                placeholder='user}: '
-                onChangeText={text => setUser(text)}
-                value={user} />
-            <Pressable style={styles.clickeable} onPress={() => onSubmit()}>
-                <Text> Registrarse </Text>
-            </Pressable>
         </View>
     )
 
@@ -65,6 +85,33 @@ const styles = StyleSheet.create({
     texto: {
         fontWeight: "bold",
         textAlign: "center"
+    },
+     containerForm: {
+        paddingHorizontal: 10,
+        marginTop: 20
+    },
+    inputStyle: {
+        height: 20,
+        paddingVertical: 15,
+        paddingHorizontal: 10,
+        borderWidth: 1,
+        borderColor: "#ccc",
+        borderStyle: "solid",
+        borderRadius: 6,
+        marginVertical: 10
+    },
+    clickeableForm: {
+        backgroundColor: "#28a745",
+        paddingHorizontal: 10,
+        paddingVertical: 6,
+        textAlign: "center",
+        borderRadius: 4,
+        borderWidth: 1,
+        borderStyle: "solid",
+        borderColor: "#28a745"
+    },
+    textoBoton: {
+        color: "#fff"
     }
 })
 

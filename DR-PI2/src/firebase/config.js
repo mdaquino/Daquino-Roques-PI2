@@ -2,15 +2,16 @@ import app from 'firebase/app';
 import firebase from 'firebase';
 
 const firebaseConfig = {
- apiKey: "AIzaSyCawyMkynjgm1PmZ1wL6E5hKpLTU18b9KQ",
- authDomain: "test-78484.firebaseapp.com",
- projectId: "test-78484",
- storageBucket: "test-78484.appspot.com",
- messagingSenderId: "834071584068",
- appId: "1:834071584068:web:afadf55cc8a18d56028b11"
+  apiKey: "AIzaSyAqqc4wL18zaVlpKtee0fv2qn6_hjFzfyY",
+  authDomain: "dr-pi2.firebaseapp.com",
+  projectId: "dr-pi2",
+  storageBucket: "dr-pi2.firebasestorage.app",
+  messagingSenderId: "388332792783",
+  appId: "1:388332792783:web:f7b0a1d920e1f19d7000ba"
 };
 
 app.initializeApp(firebaseConfig);
 
 export const auth = firebase.auth();
+export const storage = app.storage();
 export const db = app.firestore();
