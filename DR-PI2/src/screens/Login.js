@@ -1,6 +1,7 @@
 import { Text, View, Pressable, Image, FlatList, StyleSheet, TextInput } from "react-native"
 import { useState } from "react"
-import { auth } from '../firebase/config'
+import { auth, db } from '../firebase/config'
+
 
 
 function Login(props) {
@@ -54,8 +55,6 @@ function Login(props) {
             <Pressable style={styles.clickeableForm} onPress={() => onSubmit(email, password)}><Text style={styles.textoBoton}>Iniciar Sesion</Text></Pressable>
             <Text>No tenes cuenta?</Text>
             <Pressable style={styles.clickeable} onPress={() => props.navigation.navigate("Register")}><Text style={styles.texto}>Ir al registro</Text></Pressable>
-            <br></br>
-            <Pressable style={styles.clickeable} onPress={() => props.navigation.navigate("HomeMenu")}><Text style={styles.texto}>Ir al Menu</Text></Pressable>
         </View>
     )
 

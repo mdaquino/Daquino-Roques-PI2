@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { db, auth } from "../firebase/config"
 import { View, Text, Pressable } from "react-native"
 import firebase from "firebase"
+import Comentario from "../screens/Comentario"
 
 function Post(props) {
     const [cantLike, setCantLike] = useState(0)
@@ -47,19 +48,21 @@ function Post(props) {
                 setLikeado(false)
             })
     }
-
+    
+    
     return (
         <View>
             <Text>{props.posteoUsu.descripcionPost}</Text>
             <Text>Hecho por: {props.posteoUsu.owner}</Text>
             {
                 likeado === true ?
-                <Pressable onPress={() => DisLike()}><Text>Quitar Like</Text></Pressable>
+                <Pressable onPress={() => DisLike()}><Text>👎🏿</Text></Pressable>
                     
                 :
-                <Pressable onPress={() => Like()}><Text>Like</Text></Pressable>
+                <Pressable onPress={() => Like()}><Text>👍</Text></Pressable>
             }
             <Text>Cant. Likes: {cantLike}</Text>
+            <Pressable onPress={() => props.navigation.navigate("Comentario", {params:{id:props.id}})}><Text>Ver comentarios</Text></Pressable>
         </View>
     )
 

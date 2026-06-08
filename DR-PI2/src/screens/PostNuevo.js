@@ -13,7 +13,7 @@ function PostNuevo(props) {
             createdAt: Date.now(),
             likes: []
         })
-        props.navigation.navigate("Home")
+        props.navigation.navigate("NavegacionStack")
     }
 
     return (
