@@ -1,5 +1,5 @@
 import { Text, View, Pressable, Image, FlatList, StyleSheet, TextInput } from "react-native"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { auth, db } from '../firebase/config'
 
 
@@ -10,6 +10,12 @@ function Login(props) {
     const [password, setPassword] = useState("")
     const [login, setLogin] = useState(false)
     const [loginError, setLoginError] = useState("")
+
+    useEffect(() => auth.onAuthStateChanged(user => {
+        if (user){
+            props.navigation.navigate("HomeMenu")
+        }
+    }), [])
 
     function onSubmit(email, password) {
         if (password.length < 8){

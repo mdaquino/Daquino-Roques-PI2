@@ -32,7 +32,7 @@ function Home(props) {
         
 
 
-        <View>
+        <View style={styles.container}>
             <Text>Pagina de inicio</Text>
             <FlatList
                 data={comentario}
@@ -50,10 +50,8 @@ const styles = StyleSheet.create({
         display: "flex",
         padding: 10,
         flex: 1,
-        width: "100%",
-        alignContent: "center",
-        flexWrap: "wrap",
-        textAlign: "center"
+       width: "100%"
+        
     },
     clickeable: {
         padding: 4,

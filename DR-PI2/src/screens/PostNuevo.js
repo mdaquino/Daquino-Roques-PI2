@@ -7,24 +7,28 @@ function PostNuevo(props) {
     const [comentario, setComenatrio] = useState("")
 
     function Post() {
-        db.collection("posts").add({
+        if (comentario.length > 0){db.collection("posts").add({
             owner: auth.currentUser.email,
             descripcionPost: comentario,
             createdAt: Date.now(),
             likes: []
         })
-        props.navigation.navigate("NavegacionStack")
+        props.navigation.navigate("NavegacionStack")}
+        else{
+            alert("El post debe contar con al menos un caracter")
+        }
+        
     }
 
     return (
         <View style={styles.containerForm}>
-            <Text>Inserte su comentario en el espacio de debajo</Text>
+            <Text>Escriba en el espacio debajo</Text>
             <TextInput style={styles.inputStyle}
                 keyboardType="default"
-                placeholder="Comentario"
+                placeholder="Crea tu posteo"
                 onChangeText={(text) => setComenatrio(text)}
                 value={comentario}></TextInput>
-            <Pressable style={styles.clickeable} onPress={() => Post()}><Text style={styles.textoBoton}>Enviar comentario</Text></Pressable>
+            <Pressable style={styles.clickeable} onPress={() => Post()}><Text style={styles.textoBoton}>Publicar</Text></Pressable>
         </View>
     )
 }

@@ -3,6 +3,7 @@ import { db, auth } from "../firebase/config"
 import { View, Text, Pressable } from "react-native"
 import firebase from "firebase"
 import Comentario from "../screens/Comentario"
+import { StyleSheet } from "react-native"
 
 function Post(props) {
     const [cantLike, setCantLike] = useState(0)
@@ -51,18 +52,18 @@ function Post(props) {
     
     
     return (
-        <View>
+        <View style={styles.container}>
             <Text>{props.posteoUsu.descripcionPost}</Text>
             <Text>Hecho por: {props.posteoUsu.owner}</Text>
             {
                 likeado === true ?
-                <Pressable onPress={() => DisLike()}><Text>👎🏿</Text></Pressable>
+                <Pressable onPress={() => DisLike()}><Text>👎</Text></Pressable>
                     
                 :
                 <Pressable onPress={() => Like()}><Text>👍</Text></Pressable>
             }
             <Text>Cant. Likes: {cantLike}</Text>
-            <Pressable onPress={() => props.navigation.navigate("Comentario", {params:{id:props.id}})}><Text>Ver comentarios</Text></Pressable>
+            <Pressable style={styles.comentario} onPress={() => props.navigation.navigate("Comentario", {params:{id:props.id}})}><Text>Ver comentarios</Text></Pressable>
         </View>
     )
 
@@ -70,3 +71,20 @@ function Post(props) {
 }
 
 export default Post
+
+const styles = StyleSheet.create({
+    container:{
+        display: "flex",
+        margin: 10,
+        padding: 10,
+        width: "93%",
+        backgroundColor: "white",
+        borderRadius: 10,
+    },
+    comentario:{
+        padding: 10,
+        backgroundColor: "#38c1da",
+        borderRadius: 10,
+        
+    }
+})

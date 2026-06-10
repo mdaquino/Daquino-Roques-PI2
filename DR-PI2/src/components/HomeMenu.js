@@ -15,7 +15,7 @@ function HomeMenu(props){
 
     return(
         <Tab.Navigator>
-            <Tab.Screen name="NavegacionStack" component={NavegacionStack} options={{tabBarIcon: () => <AntDesign name="home" size={24} color="black" />}}/>
+            <Tab.Screen name="Inicio" component={NavegacionStack} options={{tabBarIcon: () => <AntDesign name="home" size={24} color="black" />}}/>
             <Tab.Screen name="Profile" component={Profile} options={{tabBarIcon: () => <AntDesign name="profile" size={24} color="black" />}}/>
             <Tab.Screen name="Posts" component={PostNuevo}/>
         </Tab.Navigator>
